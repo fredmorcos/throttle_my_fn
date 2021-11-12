@@ -1,0 +1,21 @@
+[package]
+name = "throttle_my_fn"
+version = "0.1.0"
+edition = "2021"
+description = "Throttle your functions"
+authors = ["Fred Morcos <fm@fredmorcos.com>"]
+license = "MIT"
+homepage = "https://github.com/fredmorcos/throttle_my_fn"
+repository = "https://github.com/fredmorcos/throttle_my_fn"
+readme = "README.md"
+# documentation =
+keywords = ["throttle", "rate-limiting", "function", "macro", "attribute"]
+categories = ["rust-patterns", "development-tools", "date-and-time"]
+
+[dependencies]
+syn = { version = "1.0", features = ["extra-traits", "full"] }
+quote = "1.0"
+proc-macro2 = "1.0"
+
+[lib]
+proc-macro = true
