@@ -35,6 +35,21 @@
 //!   ...
 //! }
 //! ```
+//!
+//! Note that the function signatures are modified to wrap the return type in an `Option`,
+//! like so:
+//!
+//! ```rust
+//! pub(crate) fn run_10_times_per_second(arg: &str) -> Option<String> {
+//!   ...
+//! }
+//!
+//! pub(crate) fn run_once_per_100_milliseconds(arg: &str) -> Option<String> {
+//!   ...
+//! }
+//! ```
+//!
+//! The `Option<T>` returned signifies whether the function executed or not.
 
 use proc_macro::TokenStream;
 use proc_macro2::TokenStream as TokenStream2;
