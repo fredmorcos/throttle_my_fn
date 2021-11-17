@@ -197,7 +197,7 @@ pub fn throttle(args: TokenStream, func: TokenStream) -> TokenStream {
 
       use std::mem::MaybeUninit;
       use std::sync::atomic::{AtomicBool, Ordering};
-      use std::sync::{Arc, Mutex};
+      use std::sync::Mutex;
       use std::time::Instant;
       use std::collections::VecDeque;
 
@@ -221,12 +221,12 @@ pub fn throttle(args: TokenStream, func: TokenStream) -> TokenStream {
 
       let current_time = Instant::now();
 
-      static mut CALLS: MaybeUninit<Arc<Mutex<VecDeque<Instant>>>> = MaybeUninit::uninit();
+      static mut CALLS: MaybeUninit<Mutex<VecDeque<Instant>>> = MaybeUninit::uninit();
       static INITIALIZED: AtomicBool = AtomicBool::new(false);
 
       // Initialize our deque of call timestamps if it's not already initialized.
       if let Ok(false) = INITIALIZED.compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst) {
-        unsafe { CALLS.write(Arc::new(Mutex::new(VecDeque::with_capacity(#times)))) };
+        unsafe { CALLS.write(Mutex::new(VecDeque::with_capacity(#times))) };
       }
 
       // Lock access to and cleanup our calls deque.
