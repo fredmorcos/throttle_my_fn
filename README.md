@@ -1,8 +1,8 @@
 # `throttle_my_fn`: A Rust attribute macro to throttle the execution of functions
 
-![License](https://img.shields.io/github/license/fredmorcos/throttle_my_fn?style=for-the-badge)
-![Crates.io](https://img.shields.io/crates/v/throttle_my_fn?style=for-the-badge)
-![docs.rs](https://img.shields.io/docsrs/throttle_my_fn?style=for-the-badge)
+[![License](https://img.shields.io/github/license/fredmorcos/throttle_my_fn?style=for-the-badge)](https://github.com/fredmorcos/throttle_my_fn/blob/main/LICENSE)
+[![Crates.io](https://img.shields.io/crates/v/throttle_my_fn?style=for-the-badge)](https://crates.io/crates/throttle_my_fn)
+[![docs.rs](https://img.shields.io/docsrs/throttle_my_fn?style=for-the-badge)](https://docs.rs/throttle_my_fn/0.1.0/throttle_my_fn/)
 
 `throttle_my_fn` is a Rust attribute macro to limit a function's number of runs over a
 specified period of time.
