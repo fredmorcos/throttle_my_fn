@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! throttle_my_fn = "0.1"
+//! throttle_my_fn = "0.2"
 //! ```
 //!
 //! Or, using `cargo add`:
