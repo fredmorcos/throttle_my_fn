@@ -7,6 +7,9 @@
 `throttle_my_fn` is a Rust attribute macro to limit a function's number of runs over a
 specified period of time.
 
+The primary use-case for this attribute macro is rate-limiting, e.g. to avoid hammering an
+online service.
+
 ## Usage
 
 Add the dependency to your `Cargo.toml`:
