@@ -16,6 +16,7 @@ categories = ["rust-patterns", "development-tools", "date-and-time"]
 syn = { version = "1.0", features = ["extra-traits", "full"] }
 quote = "1.0"
 proc-macro2 = "1.0"
+parking_lot = "0.11"
 
 [lib]
 proc-macro = true

@@ -195,11 +195,9 @@ pub fn throttle(args: TokenStream, func: TokenStream) -> TokenStream {
       // modifiers.
       #impl_sig #impl_block
 
-      use std::mem::MaybeUninit;
-      use std::sync::atomic::{AtomicBool, Ordering};
-      use std::sync::Mutex;
-      use std::time::Instant;
+      use parking_lot::{Mutex, const_mutex};
       use std::collections::VecDeque;
+      use std::time::Instant;
 
       // We maintain a list of timestamps at which calls to the function have happened in
       // the `calls` deque. This function cleans the deque up by removing all calls that
@@ -221,24 +219,28 @@ pub fn throttle(args: TokenStream, func: TokenStream) -> TokenStream {
 
       let current_time = Instant::now();
 
-      static mut CALLS: MaybeUninit<Mutex<VecDeque<Instant>>> = MaybeUninit::uninit();
-      static INITIALIZED: AtomicBool = AtomicBool::new(false);
+      static CALLS: Mutex<Option<VecDeque<Instant>>> = const_mutex(None);
 
-      // Initialize our deque of call timestamps if it's not already initialized.
-      if let Ok(false) = INITIALIZED.compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst) {
-        unsafe { CALLS.write(Mutex::new(VecDeque::with_capacity(#times))) };
+      // Lock access to the calls deque.
+      let mut calls_guard = CALLS.lock();
+
+      // If we're the first caller, we'll initialize the deque.
+      if calls_guard.is_none() {
+        *calls_guard = Some(VecDeque::with_capacity(#times));
       }
 
-      // Lock access to and cleanup our calls deque.
-      let mut calls_guard = unsafe { CALLS.as_mut_ptr().as_mut() }.unwrap().lock().unwrap();
-      cleanup(&mut calls_guard, current_time);
+      // We've ensured the deque is initialized, so this unwrap cannot fail.
+      let mut calls = calls_guard.as_mut().unwrap();
+
+      // Cleanup the calls deque.
+      cleanup(&mut calls, current_time);
 
       // Return None if our quota is full for the duration.
-      if calls_guard.len() >= #times {
+      if calls.len() >= #times {
         return None;
       }
 
-      calls_guard.push_back(current_time);
+      calls.push_back(current_time);
 
       // Drop the lock here so that other threads can call us even while the inner impl
       // function is running.
