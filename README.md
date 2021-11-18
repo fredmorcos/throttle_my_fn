@@ -62,3 +62,23 @@ pub(crate) fn run_once_per_100_milliseconds(arg: &str) -> Option<String> {
 ```
 
 The `Option<T>` returned signifies whether the function executed or not.
+
+## Changelog
+
+* 0.2.3
+  - Add this Changelog section to the README.
+
+* 0.2.2
+  - Documentation updates regarding thread-safety.
+
+* 0.2.1
+  - Documentation update about possible use cases for this crate.
+  - Thanks go to `@not-matthias` from the Rust Linz Discord server for feedback.
+
+* 0.2.0
+  - Replace the use of `MaybeUninit` and `AtomicBool` with `parking_lot::Mutex` and
+    `parking_lot::const_mutex`.
+  - Thanks go to `@mejrs` and `@veber-alex` from the Rust Discord server for feedback.
+
+* 0.1.0
+  - Initial release
