@@ -5,10 +5,13 @@
 [![docs.rs](https://img.shields.io/docsrs/throttle_my_fn?style=for-the-badge)](https://docs.rs/throttle_my_fn/0.2.1/throttle_my_fn/)
 
 `throttle_my_fn` is a Rust attribute macro to limit a function's number of runs over a
-specified period of time.
+specified period of time, even when called from multiple threads.
 
 The primary use-case for this attribute macro is rate-limiting, e.g. to avoid hammering an
-online service.
+online service or to avoid serving too many requests over a period of time.
+
+The macro works by rewriting the function and prefixing it with the necessary book-keeping
+for throttling (see `Usage` below). **The resulting function is thread-safe**.
 
 ## Usage
 
