@@ -19,23 +19,25 @@
 //! ```toml
 //! [dependencies]
 //! throttle_my_fn = "0.2"
+//! parking_lot = "0.11"
 //! ```
 //!
 //! Or, using `cargo add`:
 //!
 //! ```sh
 //! $ cargo add throttle_my_fn
+//! $ cargo add parking_lot
 //! ```
 //!
 //! Include the macro:
 //!
-//! ```rust
+//! ```ignore
 //! use throttle_my_fn::throttle;
 //! ```
 //!
 //! Annotate the functions you want to throttle:
 //!
-//! ```rust
+//! ```ignore
 //! #[throttle(10, Duration::from_secs(1))]
 //! pub(crate) fn run_10_times_per_second(arg: &str) -> String {
 //!   ...
@@ -50,7 +52,7 @@
 //! Note that the function signatures are modified to wrap the return type in an `Option`,
 //! like so:
 //!
-//! ```rust
+//! ```ignore
 //! pub(crate) fn run_10_times_per_second(arg: &str) -> Option<String> {
 //!   ...
 //! }
@@ -112,7 +114,7 @@ where
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// #[throttle(10, Duration::from_secs(1))]
 /// pub(crate) fn run_10_times_per_second(arg: &str) -> String {
 ///   ...

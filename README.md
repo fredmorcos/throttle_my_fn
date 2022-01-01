@@ -15,17 +15,19 @@ for throttling (see `Usage` below). **The resulting function is thread-safe**.
 
 ## Usage
 
-Add the dependency to your `Cargo.toml`:
+Add the necessary dependencies to your `Cargo.toml`:
 
 ```toml
 [dependencies]
 throttle_my_fn = "0.2"
+parking_lot = "0.11"
 ```
 
 Or, using `cargo add`:
 
 ```sh
 $ cargo add throttle_my_fn
+$ cargo add parking_lot
 ```
 
 Include the macro:
@@ -64,6 +66,10 @@ pub(crate) fn run_once_per_100_milliseconds(arg: &str) -> Option<String> {
 The `Option<T>` returned signifies whether the function executed or not.
 
 ## Changelog
+
+* 0.2.4
+  - Ignore example doctests.
+  - Update documentation about also adding `parking_lot` as a dependency.
 
 * 0.2.3
   - Add this Changelog section to the README.
