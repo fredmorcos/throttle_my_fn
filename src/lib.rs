@@ -259,7 +259,7 @@ pub fn throttle(args: TokenStream, func: TokenStream) -> TokenStream {
       // function is running.
       drop(calls_guard);
 
-      Some(#impl_ident(#(#call_params)*))
+      Some(#impl_ident(#(#call_params),*))
     }
   };
 
